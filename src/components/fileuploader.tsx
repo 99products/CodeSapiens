@@ -18,17 +18,17 @@ const FileUpload: React.FC = () => {
         if (fileList && fileList.length > 0) {
             setSelectedFile(fileList[0]);
             setUploadMessage("Uploading..");
-            handleFileUpload();
+            handleFileUpload(fileList[0]);
         }
     };
 
-    const handleFileUpload = async () => {
+    const handleFileUpload = async (file:File) => {
         setLoading(true);
         try {
             const storageRef = ref(storage);
             // const filesRef = ref(storageRef,'files')
-            const fileRef = ref(storageRef, `${selectedFile?.name}`);
-            uploadBytes(fileRef, selectedFile!).then((snapshot) => {
+            const fileRef = ref(storageRef, `${file.name}`);
+            uploadBytes(fileRef, file).then((snapshot) => {
                 setUploadMessage(`Success`);
                 setSelectedFile(null);
             });
